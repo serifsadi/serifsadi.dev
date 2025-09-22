@@ -353,10 +353,6 @@ a {
     position: relative;
 }
 
-.icons-component > li > a > .label {
-    display: none;
-}
-
 .icons-component.social {
     font-size: 1.375em;
     gap: 0.75rem;
