@@ -274,7 +274,7 @@ a {
     --gutters: 2rem;
     --padding-horizontal: 2rem;
     --padding-vertical: 2rem;
-    --spacing: 1.5rem;
+    --spacing: 1rem;
     padding: var(--padding-vertical) var(--padding-horizontal);
     border-radius: calc(2rem - 0px);
 }
