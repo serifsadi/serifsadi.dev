@@ -520,3 +520,70 @@ a {
         gap: 0.5625rem;
     }
 }
+
+@property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+@keyframes trail-angle {
+    0% {
+        --angle: 0deg;
+    }
+    100% {
+        --angle: 360deg;
+    }
+}
+
+.container-component.hero > .wrapper {
+    position: relative;
+    overflow: visible;
+}
+
+.container-component.hero::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.container-component.hero::before {
+    --trail-size: 4px;
+    --trail-violet: rgba(147, 51, 234, 0.9);
+    --trail-violet-soft: rgba(147, 51, 234, 0.34);
+    padding: var(--trail-size);
+    background: conic-gradient(
+            from var(--angle, 0deg),
+            transparent 0 33%,
+            var(--trail-violet-soft) 49.5%,
+            var(--trail-violet) 66%,
+            var(--trail-violet-soft) 82.5%,
+            transparent 99% 100%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    filter: saturate(120%) drop-shadow(0 0 8px rgba(59, 130, 246, 0.35));
+    animation: trail-angle 12s linear infinite;
+    opacity: 1;
+    z-index: 5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .container-component.hero::before {
+        animation: none;
+        border: 2px solid transparent;
+        background: radial-gradient(
+                120% 120% at 50% 50%,
+                rgba(255, 255, 255, 0.35),
+                rgba(255, 255, 255, 0) 60%) border-box,
+        linear-gradient(transparent, transparent) padding-box;
+        background-clip: border-box, padding-box;
+        opacity: 0.45;
+    }
+}
