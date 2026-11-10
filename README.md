@@ -1,7 +1,9 @@
 # serifsadi.dev
 
-Static personal website. The existing root `index.html`, `assets/` and `CNAME`
-remain in place for GitHub Pages during the Cloudflare migration.
+Static personal website at [https://serifsadi.dev](https://serifsadi.dev).
+Cloudflare Workers Static Assets is the sole production hosting platform, using
+the `serifsadi-web` Worker and the existing GitHub integration on `main`.
+GitHub Pages is disabled and its legacy root `CNAME` file has been removed.
 
 ## Local preparation
 
@@ -15,7 +17,7 @@ npx wrangler deploy --dry-run
 
 The build recreates `dist/` and copies only `index.html` and `assets/`, without
 transforming their contents. Hidden files and OS metadata are excluded; symbolic
-links and special files are rejected. `README.md`, `CNAME`, Git metadata,
+links and special files are rejected. `README.md`, Git metadata,
 configuration, dependencies and development scripts are not published.
 `dist/`, `node_modules/` and `.wrangler/` are ignored by Git.
 
@@ -24,7 +26,8 @@ reproduce the dependency installation. The build itself uses only Node built-ins
 
 ## Cloudflare Workers Builds settings
 
-These are the intended dashboard settings, not changes applied by this repository:
+Production uses the following settings. Dashboard settings and the GitHub
+integration are managed separately from this repository:
 
 | Setting | Value |
 | --- | --- |
@@ -36,13 +39,12 @@ These are the intended dashboard settings, not changes applied by this repositor
 | Static assets directory | `./dist` (set in `wrangler.jsonc`) |
 
 This uses Workers Static Assets only: no Worker runtime script, API, bindings or
-SPA fallback. Missing paths return 404. No custom domain, route or account ID is
-configured. The Cloudflare plan is managed in the dashboard, not in Wrangler.
+SPA fallback. Missing paths return 404. The production custom domain, DNS, HTTPS
+and WWW redirects are managed in Cloudflare; no custom domain, route or account ID
+is declared in `wrangler.jsonc`. The Cloudflare plan is managed in the dashboard.
 
-The deploy command above is for a future authorized release; it publishes to
-Cloudflare. Use `--dry-run` for local preparation. A dry run does not verify account
-permissions, the connected GitHub repository/branch, or production domain routing.
-
-Do not change DNS or disable GitHub Pages until the migration is separately
-approved and the Cloudflare deployment is verified. This preparation does not
-deploy, connect a custom domain, or change GitHub Pages settings.
+The existing Cloudflare GitHub integration builds and deploys production updates
+from `main`. The deploy command above publishes to Cloudflare in that pipeline.
+Use `--dry-run` for local validation without deploying. A dry run does not verify
+account permissions, the connected GitHub repository/branch, or production domain
+routing. Local builds do not change DNS or hosting settings.
