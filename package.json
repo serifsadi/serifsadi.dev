@@ -1,0 +1,14 @@
+{
+  "name": "serifsadi-web",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "4.160.0"
+  }
+}

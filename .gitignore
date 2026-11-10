@@ -36,3 +36,16 @@ $RECYCLE.BIN/
 ssl
 .idea
 nbproject
+
+############################
+# Local tooling and output
+############################
+
+/node_modules/
+/dist/
+/.wrangler/
+*.log
+.env
+.env.*
+.dev.vars
+.dev.vars.*
