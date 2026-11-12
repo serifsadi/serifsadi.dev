@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://serifsadi.dev/sitemap.xml

@@ -15,11 +15,19 @@ npm run build
 npx wrangler deploy --dry-run
 ```
 
-The build recreates `dist/` and copies only `index.html` and `assets/`, without
-transforming their contents. Hidden files and OS metadata are excluded; symbolic
+The build recreates `dist/` and copies only `index.html`, `favicon.ico`,
+`favicon.svg`, `apple-touch-icon.png`, `robots.txt`, `sitemap.xml` and `assets/`,
+without transforming their contents.
+Hidden files and OS metadata are excluded; symbolic
 links and special files are rejected. `README.md`, Git metadata,
 configuration, dependencies and development scripts are not published.
 `dist/`, `node_modules/` and `.wrangler/` are ignored by Git.
+
+`favicon.svg` is the vector source for the approved charcoal, ivory Ş and three
+orange segments design. Its monogram is an outlined path with no font dependency.
+`favicon.ico` contains 16, 32 and 48 pixel versions rendered from that SVG;
+`apple-touch-icon.png` is the corresponding 180 pixel icon. `robots.txt` permits public
+indexing and links to the single-page sitemap for `https://serifsadi.dev/`.
 
 Wrangler is pinned in `package.json` and `package-lock.json`; use `npm ci` to
 reproduce the dependency installation. The build itself uses only Node built-ins.

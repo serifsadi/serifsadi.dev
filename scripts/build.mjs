@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const output = join(root, 'dist');
 
-// Copy only the public entry point and assets, never the repository root.
+// Copy only explicitly listed public files and assets, never the repository root.
 async function publicFiles(source) {
   const name = basename(source);
   if (name.startsWith('.') || ['Thumbs.db', 'desktop.ini'].includes(name)) return false;
@@ -25,5 +25,8 @@ if (!(await lstat(index)).isFile() || !(await lstat(assets)).isDirectory()) {
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 await cp(index, join(output, 'index.html'), { filter: publicFiles });
+for (const name of ['favicon.ico', 'favicon.svg', 'apple-touch-icon.png', 'robots.txt', 'sitemap.xml']) {
+  await cp(join(root, name), join(output, name), { filter: publicFiles });
+}
 await cp(assets, join(output, 'assets'), { recursive: true, filter: publicFiles });
-console.log('Built dist/ from index.html and assets/ only.');
+console.log('Built dist/ from index.html, favicon.ico, favicon.svg, apple-touch-icon.png, robots.txt, sitemap.xml and assets/ only.');
